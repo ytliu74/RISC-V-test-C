@@ -1,0 +1,9 @@
+jtag_cfg.txt 
+SMEM_init.txt
+*.lst
+*.hex
+*.elf
+
+# ignore .c files except under src/
+*.c
+!/src/*.c
