@@ -16,8 +16,8 @@ TARGET=${TARGET_FILE%.*}
 
 echo "Starting the process with target file: $TARGET_FILE"
 
-# Copy the file
-if cp /mount/"$TARGET_FILE"  /home/cva6/jtag_generating
+# Copy the file and ./lib
+if cp /mount/"$TARGET_FILE"  /home/cva6/jtag_generating && cp -r /mount/lib /home/cva6/jtag_generating
 then
   echo "File copied successfully."
 else

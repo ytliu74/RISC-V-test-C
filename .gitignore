@@ -1,3 +1,5 @@
+.DS_Store
+
 jtag_cfg.txt 
 SMEM_init.txt
 *.lst
