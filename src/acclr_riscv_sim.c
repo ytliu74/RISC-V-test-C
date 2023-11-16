@@ -21,11 +21,11 @@ int main()
   *test_pntr = 0x00000001;
   
   //check done
-  test_pntr1 = (unsigned int *)(0x80080000);  
+  test_pntr1 = (unsigned int *)(0x8006FFFE);  
 
    while(*test_pntr1 != 0xDEADBEEF)
   {
-     test_pntr1 = (unsigned int *)(0x80080000);
+     test_pntr1 = (unsigned int *)(0x8006FFFE);
   }         
   
   // Exit Tb Simulation
