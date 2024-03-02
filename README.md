@@ -3,7 +3,7 @@
 You need Docker to compile. Then 
 
 ```
-docker pull ytliu74/cva6:latest
+docker pull ytliu74/cva6:intel_compile
 ```
 
 to get the docker image
