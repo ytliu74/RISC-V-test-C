@@ -14,13 +14,7 @@ int main()
   // Init Console
   con_init();
 
-  // Behavior
-  int n = 2;
-
-  for (int i = 0; i < n; i ++) {
-    test_pntr = (unsigned int *)(0x80000000 + i * 4);
-    cprintf("%#08X \n", *test_pntr);
-  }
+  cprintf("Hello World\n");
 
   // Exit Tb Simulation
   hartID_pntr = (unsigned int *)(0x10001024); // Magic Exit address

@@ -9,3 +9,6 @@ SMEM_init.txt
 # ignore .c files except under src/
 *.c
 !/src/*.c
+!/local_src/*.c
+
+.cache

@@ -17,5 +17,5 @@
 
 #define set_MSTATUS asm volatile("csrs mstatus, %0" : : "r"((unsigned int)0x8));
 
-#define set_MTVEC(trap_handler)                                                \
-  asm volatile("csrw mtvec, %0" : : "r"(&trap_handler));
+#define set_MTVEC(interrupt_handler)                                                \
+  asm volatile("csrw mtvec, %0" : : "r"(&interrupt_handler));

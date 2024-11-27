@@ -1,0 +1,12 @@
+[
+    {
+        "directory": "/Users/henry/repos/RISC-V-test-C",
+        "command": "riscv64-elf-gcc -I ./lib -I ./sw/libs -I ./sw/libs/uart_lib/include -c f.c",
+        "file": "f.c"
+    },
+    {
+        "directory": "/Users/henry/repos/RISC-V-test-C/local_src",
+        "command": "clang++ -Wc++11-extensions -std=c++11 -o gen test_mat_gen.cpp",
+        "file": "test_mat_gen.c"
+    }
+]

@@ -1,71 +1,7 @@
-#!/usr/bin/bash
+include="-I . -I ./sw/libs/uart_lib/include"
+ld_flag="-T linker.ld"
+flag="-mabi=lp64 -march=rv64g -mcmodel=medany -Os -static -fvisibility=hidden -nostdlib -nostartfiles -fomit-frame-pointer"
+files="$target.c message.S ./sw/libs/uart_lib/uart.c ./sw/libs/uart_lib/conio.c ./sw/libs/uart_lib/console.c ./sw/libs/uart_lib/vsprintf.c ./sw/libs/uart_lib/skip_spaces.c ./sw/libs/uart_lib/ctype.c ./sw/libs/uart_lib/strnlen.c"
 
-# This is for compiling the source code for CVA6 core.
 
-TARGET_FILE=$1
-
-# Check if the file is provided
-if [ -z "$TARGET_FILE" ]
-then
-  echo "Error: No file provided. Please provide the source file as an argument."
-  exit 1
-fi
-
-# Remove the postfix of the file name
-TARGET=${TARGET_FILE%.*}
-
-echo "Starting the process with target file: $TARGET_FILE"
-
-# Copy the file and ./lib
-if cp /mount/"$TARGET_FILE"  /home/cva6/jtag_generating && cp -r /mount/lib /home/cva6/jtag_generating
-then
-  echo "File copied successfully."
-else
-  echo "Error in copying the file. Exiting..."
-  exit 1
-fi
-
-cd /home/cva6/jtag_generating
-
-export RISCV=/home/toolchain
-export PATH=$PATH:$RISCV/bin
-
-export target=$TARGET
-
-# Run the compile.sh script
-if bash compile.sh
-then
-  echo "Compilation successful."
-else
-  echo "Error in compilation. Exiting..."
-  exit 1
-fi
-
-# Run the dump.sh script
-if bash dump.sh
-then
-  echo "Dump successful."
-else
-  echo "Error in dump. Exiting..."
-  exit 1
-fi
-
-cd ./out_files
-
-# Run the python script
-if python3 gen_jtag_smem.py "$TARGET"
-then
-  echo "Python script run successful."
-else
-  echo "Error in running Python script. Exiting..."
-  exit 1
-fi
-
-# Copy the output files
-if cp "$TARGET".elf /mount && cp "$TARGET"_data.hex /mount && cp "$TARGET"_text.hex /mount && cp "$TARGET"_assembly.lst /mount && cp SMEM_init.txt /mount && cp jtag_cfg.txt /mount
-then
-  echo "Files copied successfully. Process completed."
-else
-  echo "Error in copying the output files. Exiting..."
-  exit 1
-fi
+riscv64-unknown-elf-gcc $include $ld_flag $flag $files -DCONFIG_DEV_CON_UART_MMIO_BASE=0x10000000 -DPERI_CORE_CLOCK_DIV=54 -DCONFIG_DEV_CON_UART_BPS=115200 -o ./out_files/$target.elf
