@@ -1,6 +1,6 @@
 USER=yliu1047
-MACHINE=CPU
-FILE_PATH=/home/$(USER)/Intel/UnivDesignChallenge/verif/tb/heather_lake
+MACHINE=acme01
+FILE_PATH=/data/home/yliu1047/Intel/UnivDesignChallenge/verif/tb/heather_lake
 FILE=SMEM_init.txt
 
 CFILE = $(wildcard *.c)
@@ -11,6 +11,9 @@ compile:
 
 clean:
 	rm -r jtag_cfg.txt SMEM_init.txt *.lst *.hex *.elf
+
+clean_all: clean
+	rm -r *.c
 
 upload_SMEM:
 	ssh $(USER)@$(MACHINE) "cp $(FILE_PATH)/$(FILE) $(FILE_PATH)/$(FILE).bak"
